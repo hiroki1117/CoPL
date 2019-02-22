@@ -1,0 +1,30 @@
+|- let compose = fun f -> fun g -> fun x -> f (g x) in 
+   let p = fun x -> x * x in
+   let q = fun x -> x + 4 in
+   compose p q 4 
+  evalto 64 by E-Let{
+  |- fun f -> fun g -> fun x -> f (g x) evalto ()[fun f -> fun g -> fun x -> f (g x)] by E-Fun{};
+  compose=()[fun f -> fun g -> fun x -> f (g x)] |- let p = fun x -> x * x in let q = fun x -> x + 4 in compose p q 4 evalto 64 by E-Let{
+    compose=()[fun f -> fun g -> fun x -> f (g x)] |- fun x -> x * x evalto (compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x] by E-Fun{};
+    compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x] |- let q = fun x -> x + 4 in compose p q 4 evalto 64 by E-Let{
+      compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x] |- fun x -> x + 4 evalto (compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] by E-Fun{};
+      compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],q=(compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] |- compose p q 4 evalto 64 by E-App{
+        compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],q=(compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] |- compose p q evalto by E-App{
+          compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],q=(compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] |- compose p evalto (f=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun g -> f (g x)] by E-App{
+            compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],q=(compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] |- compose evalto ()[fun f -> fun g -> fun x -> f (g x)] by E-Var2{
+              compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],q=(compose=()[fun f -> fun g -> fun x -> f (g x)] |- compose evalto ()[fun f -> fun g -> fun x -> f (g x)] by E-Var2{
+                compose=()[fun f -> fun g -> fun x -> f (g x)] |- compose evalto ()[fun f -> fun g -> fun x -> f (g x)] by E-Var1{}
+              }
+            };
+            compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],q=(compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] |- p evalto (compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x] by E-Var2{
+              compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],q=(compose=()[fun f -> fun g -> fun x -> f (g x)] |- p evalto (compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x] by E-Var1{}
+            };
+            f=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x] |- fun g -> f (g x) evalto (f=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun g -> f (g x)] by E-Fun{}
+          };
+          compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],q=(compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] |- q evalto (compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] by E-Var1{};
+          f=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x],g=(compose=()[fun f -> fun g -> fun x -> f (g x)],p=(compose=()[fun f -> fun g -> fun x -> f (g x)])[fun x -> x * x])[fun x -> x + 4] |- f (g x) evalto 
+        }
+      }
+    }
+  }
+}
