@@ -32,9 +32,17 @@
          };
          compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose f (compose g f) true:int by T-App{
            compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose f (compose g f):bool->int by T-App{
-             compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose f:('a->bool)->'a->bool by T-App{
-               compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose:
+             compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose f:(bool->bool)->bool->int by T-App{
+               compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose:(bool->int)->(bool->bool)->bool->int by T-Var{};
+               compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- f: bool->int by T-Var{}
              };
+             compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose g f:bool->bool by T-App{
+               compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose g:(bool->int)->bool->bool by T-App{
+                 compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- compose:(int->bool)->(bool->int)->bool->bool by T-Var{};
+                 compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- g:int->bool by T-Var{}
+               };
+               compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- f: bool->int by T-Var{}
+             }
            };
            compose:'a 'b 'c.('b->'c)->('a->'b)->'a->'c,f:bool->int,g:int->bool |- true: bool by T-Bool{}
          }
